@@ -190,6 +190,7 @@ world = {
       "name": "Kitchen",
       "tags": "",
       "id": "7",
+      "score"20
       "text": "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is open.\n\n[[EAST->East of House]]",
       "links": [
         {
@@ -230,11 +231,14 @@ def find_current_location(location_label):
 	return {}
 
 # ----------------------------------------------------------------
-
 def render(current_location, score, moves):
 	if "name" in current_location and "cleanText" in current_location:
 		print("You are at the " + str(current_location["name"]))
 		print(current_location["cleanText"] + "\n")
+    print("Moves: {}, Score: {}".format(moves,score))
+
+    
+    
 
 def get_input():
 	response = input("What do you want to do? ")
@@ -263,8 +267,11 @@ moves = 0
 while True:
 	if response == "QUIT":
 		break
+  moves = moves + 1
 	location_label = update(current_location, location_label, response)
 	current_location = find_current_location(location_label)
+  if "score" in current_location:
+    score = score + current_location["score"]
 	render(current_location, score, moves)
 	response = get_input()
 
